@@ -10,30 +10,27 @@ rest of the scenario can run.
 
 ## Steps
 
-1. **Provision the infrastructure.** The fastest path is the FrontierWeekHack deploy
-   script, which creates Foundry + model + Log Analytics + App Insights in one go:
-   ```bash
-   # from a fork of microsoft/FrontierWeekHack
-   ./claims/challenge-0-setup/deploy.sh
-   ```
-   Or create a Foundry project and a `gpt-5.4` deployment manually in
-   [ai.azure.com](https://ai.azure.com).
-
-2. **Fill in `.env`** at the repo root from the deploy output:
-   ```bash
-   cp challenge-0-setup/.env.template .env
-   ```
-   The critical values are `PROJECT_CONNECTION_STRING` (the project endpoint URL of the
-   form `https://<resource>.services.ai.azure.com/api/projects/<project>`),
-   `MODEL_DEPLOYMENT_NAME`, and `APPLICATIONINSIGHTS_CONNECTION_STRING`.
-
-3. **Authenticate.** The SDK uses `DefaultAzureCredential`, which picks up your CLI login:
+1. **Authenticate.**
    ```bash
    az login
    ```
 
-4. **Assign the Foundry User role** on the project to your account so you can create and
-   run agents.
+2. **Provision everything with the bundled script.** It creates the Foundry account,
+   project, and model deployment, plus Log Analytics and Application Insights, and writes
+   a ready-to-use `.env` at the repo root:
+   ```bash
+   ./challenge-0-setup/deploy.sh
+   # override region/model if needed:
+   # LOCATION=westeurope MODEL_DEPLOYMENT_NAME=gpt-4o-mini ./challenge-0-setup/deploy.sh
+   ```
+   The script also makes a best-effort attempt to grant your account the **Azure AI User**
+   role on the Foundry resource. If agent calls later return 403, add that role manually in
+   the portal.
+
+   *(If you'd rather provision manually:* create a Foundry project and a `gpt-5.4`
+   deployment in [ai.azure.com](https://ai.azure.com), then
+   `cp challenge-0-setup/.env.template .env` and fill in `PROJECT_CONNECTION_STRING`,
+   `MODEL_DEPLOYMENT_NAME`, and `APPLICATIONINSIGHTS_CONNECTION_STRING`.)*
 
 ## Verify
 

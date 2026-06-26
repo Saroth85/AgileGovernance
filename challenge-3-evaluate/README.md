@@ -35,6 +35,19 @@ dependency) that the agent must catch — without flagging problems that aren't 
    Accuracy — tools don't execute during portal evaluation.
 5. Submit and review the per-criterion scores and per-row reasoning in the report.
 
+## Offline pre-check (no Foundry)
+
+Before spending Foundry calls, validate and tune the gate policy locally. The runner scores
+the deterministic INVEST/DoR engine over the same golden set and reports concrete
+precision / recall / gate accuracy, and flags the cases where it struggles:
+
+```bash
+python challenge-3-evaluate/run_local_eval.py
+```
+
+Current results and the edge-case analysis are written up in
+[`../docs/RESULTS.md`](../docs/RESULTS.md).
+
 ## Interpreting results
 
 A low score is a signal, not a conclusion: the score says something went wrong, the

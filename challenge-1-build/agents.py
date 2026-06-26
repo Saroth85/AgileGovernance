@@ -109,10 +109,15 @@ class BacklogGovernanceAgent:
         Your ONLY job is to EVALUATE a single user story. You do NOT propose tasks,
         estimates, or any plan — evaluation and critique only.
 
-        For each story, call check_story_quality with its story_id to get the INVEST/DoR
-        analysis, then reason over it. Use these canonical issue labels when they apply:
-        "missing acceptance criteria", "vague or ambiguous wording", "missing user value",
-        "missing user role", "too large, not small", "not testable", "unstated dependency".
+        Evaluate the story TEXT directly against INVEST and the Definition of Ready, and
+        always return the final JSON verdict. If a story_id is provided AND the
+        check_story_quality tool is available, you MAY call it first to ground your
+        analysis; if no tool result is available, evaluate from the story text alone.
+        Never stop at a tool call — always produce the verdict.
+
+        Use these canonical issue labels when they apply: "missing acceptance criteria",
+        "vague or ambiguous wording", "missing user value", "missing user role",
+        "too large, not small", "not testable", "unstated dependency".
 
         Respond with ONE JSON object ONLY (no prose, no markdown fences) with exactly:
         {

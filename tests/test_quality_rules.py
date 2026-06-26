@@ -28,3 +28,23 @@ def test_missing_value_blocks_gate_via_invest():
     a = analyse_story("As a user I want reports.")
     assert a["gate_pass"] is False
     assert a["invest"]["valuable"] < 3
+
+
+def test_gate_status_is_three_way():
+    a = analyse_story("We need a fast and user-friendly dashboard for everything.")
+    assert a["gate_status"] == "reject"
+    assert a["gate_pass"] is False
+
+
+def test_team_policy_overrides_threshold():
+    # back-office team uses a stricter threshold (75) and is loaded from config
+    a = analyse_story("As a user I want reports.", team="back-office")
+    assert a["policy"]["threshold"] == 75
+    assert a["policy"]["team"] == "back-office"
+
+
+def test_review_band_routes_borderline_to_human():
+    story = ("I want the netting logic so that settlement nets correctly, "
+             "but it depends on the Tobin tax module.")
+    assert analyse_story(story)["gate_status"] == "reject"            # default: binary
+    assert analyse_story(story, team="platform")["gate_status"] == "review"  # band > 0

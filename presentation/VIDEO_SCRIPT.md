@@ -73,7 +73,7 @@ queryable metrics. Then evaluation: I run the Governance Agent against a labelle
 set with LLM-as-judge scoring. Monitoring tells me the system is running; evaluation tells
 me it's *right*.
 
-**[SLIDE 10 — Results]**
+**[SLIDE 10 — Evaluation]**
 
 On the golden set, the agent catches the seeded problems with high precision and recall,
 and its gate decisions match the human labels the large majority of the time — and where

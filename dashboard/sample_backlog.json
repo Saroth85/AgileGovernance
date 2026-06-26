@@ -1,0 +1,33 @@
+{
+  "stories": [
+    { "age_days": 1, "title": "Filter executed orders by settlement date",
+      "description": "As a back-office operator, I want to filter executed orders by settlement date, so that I can reconcile end-of-day positions. Acceptance criteria: Given a settlement date, When I apply the filter, Then only orders settling on that date are shown." },
+
+    { "age_days": 2, "title": "Export daily trade blotter",
+      "description": "As a compliance analyst, I want to export the daily trade blotter to CSV, so that I can submit the regulatory report. Acceptance criteria: Given the blotter, When I click export, Then a CSV of executed trades is produced." },
+
+    { "age_days": 0, "title": "Immutable amendment log",
+      "description": "As an auditor, I want an immutable log of order amendments, so that I can trace who changed what. Acceptance criteria: Given an amendment, When it is saved, Then an entry with user, timestamp and old/new values is recorded." },
+
+    { "age_days": 4, "title": "CSV export of the blotter",
+      "description": "I want a CSV export of the blotter so that auditors can reconcile trades." },
+
+    { "age_days": 6, "title": "Netting refactor with dependency",
+      "description": "As a developer, I want the netting refactor, so that fees net correctly. Acceptance criteria: Given a trade, When fees apply, Then they net per account. It depends on the pricing service upgrade being delivered first." },
+
+    { "age_days": 3, "title": "Real-time position view",
+      "description": "As a desk trader, I want real-time positions per instrument, so that I can manage intraday risk. Acceptance criteria: Given an open position, When the price updates, Then the unrealised P&L refreshes within two seconds." },
+
+    { "age_days": 5, "title": "Limit-breach alert",
+      "description": "As a risk manager, I want a limit-breach alert, so that I can react quickly. The alert should be reliable." },
+
+    { "age_days": 1, "title": "Trading dashboard",
+      "description": "We need a fast and user-friendly dashboard that shows everything about trades and also exports data and also sends email alerts and integrates with the risk system." },
+
+    { "age_days": 8, "title": "Speed up reconciliation",
+      "description": "Make the reconciliation faster." },
+
+    { "age_days": 2, "title": "Settlement failure flagging",
+      "description": "As a settlement clerk, I want to flag failed settlements, so that I can chase the counterparty. Acceptance criteria: Given a settlement marked failed, When I open the failures view, Then the item appears with its counterparty and amount." }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "_comment": "Configurable Definition of Ready & gate policy. 'default' applies unless a team override is selected via analyse_story(text, team='<name>'). Each team inherits 'default' and overrides only the keys it sets.",
+  "default": {
+    "gate_threshold": 70,
+    "min_invest": 3,
+    "review_band": 0,
+    "issue_penalty": 13,
+    "max_words": 60,
+    "max_conjunctions": 4,
+    "required_dor": [
+      "has_user_role",
+      "has_user_value",
+      "has_acceptance_criteria",
+      "is_appropriately_small"
+    ],
+    "vague_terms": [
+      "veloce",
+      "facile",
+      "user-friendly",
+      "intuitivo",
+      "performante",
+      "ottimale",
+      "robusto",
+      "scalabile",
+      "semplice",
+      "migliore",
+      "rapido",
+      "efficiente",
+      "fast",
+      "easy",
+      "intuitive",
+      "robust",
+      "scalable",
+      "seamless",
+      "better"
+    ],
+    "hard_blockers": [
+      "unstated dependency"
+    ]
+  },
+  "teams": {
+    "back-office": {
+      "_comment": "Regulated financial back-office: stricter bar, no human-review band.",
+      "gate_threshold": 75,
+      "min_invest": 3,
+      "review_band": 0
+    },
+    "platform": {
+      "_comment": "Platform team: slightly looser bar, borderline scores go to human review.",
+      "gate_threshold": 65,
+      "review_band": 8
+    },
+    "discovery": {
+      "_comment": "Early discovery work: lenient, wide human-review band, allows extra vague terms during spikes.",
+      "gate_threshold": 60,
+      "review_band": 12,
+      "vague_terms": [
+        "veloce",
+        "facile",
+        "performante",
+        "fast",
+        "easy",
+        "scalable",
+        "better"
+      ]
+    },
+    "dashboard-demo": {
+      "_comment": "Used by the dashboard demo: review band on, so borderline stories reach the human queue.",
+      "gate_threshold": 70,
+      "review_band": 10,
+      "hard_blockers": [
+        "unstated dependency"
+      ]
+    }
+  }
+}

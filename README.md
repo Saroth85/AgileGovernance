@@ -39,12 +39,11 @@ orchestrated by a deployable **workflow agent** invocable by name.
 ## Run it on Foundry
 
 ```bash
-# 0 — provision (uses the FrontierWeekHack deploy.sh; or your own Foundry project)
-#     then fill in .env from the deploy output
-cp challenge-0-setup/.env.template .env
+# 0 — provision Foundry + model + App Insights and auto-write .env
+az login
+./challenge-0-setup/deploy.sh
 
 pip install -r requirements.txt
-az login          # DefaultAzureCredential uses this session
 
 # 1 — build & test the two agents (they appear in the Foundry portal)
 python challenge-1-build/agents.py
@@ -76,13 +75,48 @@ pytest -q
 
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — architecture deep-dive (the gate, the
   two agents, how it maps to Foundry).
+- [`docs/EVALUATION.md`](docs/EVALUATION.md) — the three-pillar evaluation (correctness, quality, safety) incl. the Foundry LLM-as-judge run.
+- [`docs/RESULTS.md`](docs/RESULTS.md) — concrete evaluation numbers, the gate policy, and
+  the edge cases where the engine struggles.
+- [`docs/EXAMPLES.md`](docs/EXAMPLES.md) — sample prompts, full JSON verdicts (pass + fail),
+  and the per-team human-review example.
+- [`docs/ITERATION_LOG.md`](docs/ITERATION_LOG.md) — how the agents and gate were refined.
+- [`docs/ROADMAP.md`](docs/ROADMAP.md) — human-in-the-loop review mode and the
+  backlog-health dashboard.
 - Per-challenge guides: [0](challenge-0-setup/README.md) ·
   [1](challenge-1-build/README.md) · [2](challenge-2-monitor/README.md) ·
   [3](challenge-3-evaluate/README.md) · [4](challenge-4-deploy/README.md).
-- [`presentation/VIDEO_SCRIPT.md`](presentation/VIDEO_SCRIPT.md) — narration for the demo
-  video, with slide cues.
-- `presentation/AI-Agile-Delivery-Governance-Overview.docx` — the project overview document.
-- `presentation/AI-Agile-Delivery-Governance-Slides.pptx` — the slide deck.
+- [`presentation/`](presentation/) — video script, narration for text-to-speech, the
+  overview document, the slide deck, and the intro screen.
+
+## Backlog-health dashboard + human-in-the-loop
+
+Beyond the five challenges, a web dashboard ([`dashboard/`](dashboard/)) turns the gate into
+a backlog-health instrument and puts a human in the loop for stories the gate can't
+auto-decide (borderline scores or hard blockers like an unstated dependency). It shows the
+gate pass-rate, recurring INVEST failures, top issues, and a review queue where a reviewer
+approves or sends a story back — and each decision is logged as a new ground-truth label,
+closing the loop.
+
+```bash
+pip install -r requirements.txt      # includes fastapi + uvicorn
+./dashboard/run.sh                    # seeds the demo backlog, serves http://127.0.0.1:8000
+```
+
+See [`dashboard/README.md`](dashboard/README.md) for the API and details.
+
+## Configurable Definition of Ready
+
+The gate policy is not hard-coded — it lives in
+[`config/dor_policy.json`](config/dor_policy.json). A `default` policy applies unless a team
+override is selected: `analyse_story(story_text, team="platform")`. Each team can tune its
+threshold, INVEST floor, vague-term list, size limits, and an optional `review_band` that
+routes borderline scores to a human (`gate_status` = `pass` / `review` / `reject`). Measure
+any change with:
+
+```bash
+python challenge-3-evaluate/run_local_eval.py   # precision / recall / gate accuracy, offline
+```
 
 ## Files
 
