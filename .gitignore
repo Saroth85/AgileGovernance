@@ -4,3 +4,6 @@ __pycache__/
 .env
 .pytest_cache/
 .DS_Store
+
+# Local environment with secrets
+.env
