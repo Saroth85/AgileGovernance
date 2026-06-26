@@ -1,0 +1,29 @@
+{
+  "stories": [
+    {
+      "story_id": "STR-001",
+      "title": "Filter executed orders by settlement date",
+      "description": "As a back-office operator, I want to filter executed orders by settlement date, so that I can reconcile end-of-day positions. Acceptance criteria: Given a settlement date, When I apply the filter, Then only orders settling on that date are shown."
+    },
+    {
+      "story_id": "STR-002",
+      "title": "Export daily trade blotter",
+      "description": "As a compliance analyst, I want to export the daily trade blotter to CSV, so that I can submit the regulatory report. Acceptance criteria: Given the blotter, When I click export, Then a CSV of executed trades is produced."
+    },
+    {
+      "story_id": "STR-003",
+      "title": "Trading dashboard",
+      "description": "We need a fast and user-friendly dashboard that shows everything about trades and also exports data and also sends email alerts and integrates with the risk system."
+    },
+    {
+      "story_id": "STR-004",
+      "title": "Limit-breach alert",
+      "description": "As a risk manager I want a limit-breach alert, so that I can react quickly. The alert should be reliable."
+    },
+    {
+      "story_id": "STR-005",
+      "title": "Netting logic for Tobin tax",
+      "description": "As an analyst, I want the new netting logic, but it depends on the Tobin tax module being migrated first."
+    }
+  ]
+}
